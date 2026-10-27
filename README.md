@@ -121,14 +121,21 @@ Entra's sign-in log was slow to show this attempt, so I didn't rely on it. The c
 
 ## Evidence
 
-Redacted screenshots go in `/evidence`:
+Redacted screenshots are in [`/evidence`](evidence/). Tenant ID, object ID and email are blacked out or replaced with `[REDACTED]`, and the session cookie is cropped out.
 
-- Basic SAML Configuration and Attributes & Claims (including the NameID setting)
-- The Network tab showing the `POST` to `/SAML/Consume/22789` (status 302)
-- The decoded assertion, with tenant ID, object ID and email redacted
-- Break 1: the `AADSTS650056` error page, and the matching sign-in log row (Application: Azure AD SAML Toolkit, status Failure)
-- Break 2: the Network tab showing the `POST` to Consume returning `200` (failure) beside the earlier `302` (success), and the signing-certificate panel showing both thumbprints
-- Both controls: the restored configuration and the successful login afterwards
+| File | What it shows |
+|---|---|
+| `01-saml-config.png` | Basic SAML Configuration and Attributes & Claims, including the NameID set to `user.mail` |
+| `02-network-post-302.png` | The `POST` to `/SAML/Consume/22789` returning **302** (successful login) |
+| `10-decoded-assertion-redacted.png` | The decoded assertion (signature and certificate collapsed) |
+| `03-break1-aadsts650056.png` | Break 1: the `AADSTS650056` error page |
+| `04-break1-control-config-restored.png` | Break 1 control: configuration restored |
+| `05-break1-control-login-ok.png` | Break 1 control: login works again |
+| `06-break2-signing-certs.png` | Break 2: both signing certificates and their thumbprints |
+| `08-break2-302-vs-200.png` | Break 2: the same `POST` returning 302 (before) and 200 (after the rotation) |
+| `09-break2-control-login-ok.png` | Break 2 control: original certificate reactivated, login works |
+
+One thing I didn't capture: the Break 1 sign-in log row. I saw it on the first run, but when I re-ran Break 1 to take these screenshots the log was slow to show it, so it isn't pictured here.
 
 ## Environment
 
