@@ -16,7 +16,7 @@ sequenceDiagram
     participant SP as SAML Toolkit (service provider)
     participant IdP as Microsoft Entra ID (identity provider)
     B->>SP: GET /SAML/Login/22789
-    SP-->>B: Redirect with signed-in request (SAMLRequest)
+    SP-->>B: Redirect carrying an authentication request (SAMLRequest)
     B->>IdP: Carries the request to Entra
     IdP-->>B: Authenticates me (existing session, MFA already satisfied)
     IdP-->>B: Signed assertion (SAMLResponse)
